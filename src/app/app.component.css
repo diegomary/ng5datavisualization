@@ -1,0 +1,120 @@
+
+
+.sample-title {
+  text-align: center;
+  margin: 0;
+  padding: 1% 1%;
+  box-sizing:border-box;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.paginator {
+  text-align: center;
+  padding-bottom: 1%;
+}
+.paginator > button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  font-size: 1.5em;
+  outline: none;
+  border: 3px solid transparent;
+  color: #9E9E9E;
+  cursor:pointer;
+ 
+}
+
+.paginator > button:hover {
+  color:#263238;
+}
+
+.paginator > button:active {
+  background-color: lightgrey;
+  border: 3px solid silver;
+}
+
+.row {
+  display: flex;
+  padding: 2% 0;
+  box-sizing: border-box;
+  align-items: baseline;
+  margin-bottom: 2%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.1s ease-in;
+ /* opacity:0;
+  animation: flowerFadeIn 0.5s 0.5s linear forwards;*/
+  
+}
+
+
+@keyframes flowerFadeIn {
+  from {
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }  
+}
+
+
+.row > div:first-of-type {
+  width: 10%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0 1%;
+  box-sizing: border-box;
+}
+.row > div:nth-of-type(2) {
+  width: 70%;
+
+  text-align: justify;
+}
+.row > div:last-of-type {
+  width: 20%;
+  padding: 0 2%;
+  box-sizing: border-box;
+  align-self: flex-start;
+  
+}
+.row > div:last-of-type > img {
+  border-radius: 3px;
+}
+
+@media (max-width: 1100px) {
+  .row {
+    display: flex;
+    margin-bottom: 4%;
+    flex-direction: column;
+  }
+
+  .row > div:first-of-type {
+    width: 100%;
+    padding: 1% 1%;
+  }
+  .row > div:nth-of-type(2) {
+    width: 100%;
+    padding: 0 2%;
+    box-sizing: border-box;
+  }
+  .row > div:last-of-type {
+    width: 50%;
+    margin: 0 auto;
+    padding: 2% 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .row > div:last-of-type {
+    width: 90%;
+  }
+  .sample-title {
+    font-size:1.5em;
+  }
+}
