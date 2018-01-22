@@ -1,5 +1,4 @@
-<div>
-  <h1 class="sample-title">Angular Data Visualisation Client Side Paging</h1>
+
   <div class="container">
     <div class="paginator">
       <button title="Go to first page" (click)="firstPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
@@ -8,10 +7,13 @@
       <button title="Go to last page" (click)="lastPage()"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
     </div>
     <div class="row" *ngFor="let flower of flowersInPage">   
-      <div>{{flower.Name}}</div>
-      <div>{{flower.Description}}</div>
-      <div>
-        <img src="{{flower.ImagePath}}" alt="" width=100%> </div>
+      <p>{{flower.Name}}</p>          
+          <div class ="description">
+            <p>{{flower.Description}}</p>
+            <div>
+            <img src="{{flower.ImagePath}}" width="100%" alt="" />
+            </div>
+          </div>
     </div>
   </div>
-</div>
+

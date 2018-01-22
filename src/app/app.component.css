@@ -1,15 +1,7 @@
-.test{background-color:red;}
-
-.sample-title {
-  text-align: center;
-  margin: 0;
-  padding: 1% 1%;
-  box-sizing:border-box;
-}
-
 .container {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  background-color: white;
 }
 
 .paginator {
@@ -24,13 +16,12 @@
   font-size: 1.5em;
   outline: none;
   border: 3px solid transparent;
-  color: #9E9E9E;
-  cursor:pointer;
- 
+  color: #9e9e9e;
+  cursor: pointer;
 }
 
 .paginator > button:hover {
-  color:#263238;
+  color: #263238;
 }
 
 .paginator > button:active {
@@ -38,83 +29,36 @@
   border: 3px solid silver;
 }
 
-.row {
-  display: flex;
-  padding: 2% 0;
-  box-sizing: border-box;
-  align-items: baseline;
-  margin-bottom: 2%;
+.row {  
+  padding: 1em 0;
+  box-sizing: border-box;   
   background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  transition: all 0.1s ease-in;
- /* opacity:0;
-  animation: flowerFadeIn 0.5s 0.5s linear forwards;*/
   
 }
 
-
-@keyframes flowerFadeIn {
-  from {
-    opacity:0;
-  }
-  to{
-    opacity:1;
-  }  
+.description {
+  display:flex;
 }
 
-
-.row > div:first-of-type {
-  width: 10%;
-  text-align: center;
+.row > p {
   font-weight: bold;
   font-size: 1.2em;
-  padding: 0 1%;
+  padding: 0 15px;
   box-sizing: border-box;
 }
-.row > div:nth-of-type(2) {
-  width: 70%;
-
+.description > p {
+  width: 80%;
   text-align: justify;
+  font-size:0.9em;
+  padding: 0 15px;
+  margin:0;
 }
-.row > div:last-of-type {
+.description > div {
   width: 20%;
-  padding: 0 2%;
-  box-sizing: border-box;
-  align-self: flex-start;
-  
+  padding: 0 1em;
+  box-sizing: border-box;  
 }
-.row > div:last-of-type > img {
+.description > div > img {
   border-radius: 3px;
 }
 
-@media (max-width: 1100px) {
-  .row {
-    display: flex;
-    margin-bottom: 4%;
-    flex-direction: column;
-  }
-
-  .row > div:first-of-type {
-    width: 100%;
-    padding: 1% 1%;
-  }
-  .row > div:nth-of-type(2) {
-    width: 100%;
-    padding: 0 2%;
-    box-sizing: border-box;
-  }
-  .row > div:last-of-type {
-    width: 50%;
-    margin: 0 auto;
-    padding: 2% 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .row > div:last-of-type {
-    width: 90%;
-  }
-  .sample-title {
-    font-size:1.5em;
-  }
-}
