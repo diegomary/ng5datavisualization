@@ -11,7 +11,7 @@ export class AppComponent {
   title:string;
   constructor(private flowerservice: FlowerService) { this.title = 'First Angular 5 example with joy'; }
   flowers:any[] = [];
-  pageSize:number = 2;
+  pageSize:number = 5;
   pageNumber:number = 1;   
   flowersInPage:any[] = [];
 

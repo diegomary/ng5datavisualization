@@ -1,12 +1,12 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  background-color: white;
+
 }
 
 .paginator {
   text-align: center;
-  padding-bottom: 1%;
+  
 }
 .paginator > button {
   border-radius: 50%;
@@ -30,9 +30,9 @@
 }
 
 .row {  
-  padding: 1em 0;
+ 
   box-sizing: border-box;   
-  background-color: white;
+  padding-bottom:2em;
   
 }
 
@@ -43,9 +43,11 @@
 .row > p {
   font-weight: bold;
   font-size: 1.2em;
-  padding: 0 15px;
+  padding: 0 15px 10px 15px;
   box-sizing: border-box;
+  margin:0;
 }
+
 .description > p {
   width: 80%;
   text-align: justify;
