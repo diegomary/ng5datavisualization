@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FlowerService } from './services/flowerservice';
+import { FlowerService } from '../../services/flowerservice';
 import { Observable,Observer,Subject } from 'rxjs/Rx';
 @Component({
   selector: 'app-root',
   providers: [ FlowerService ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './flowers.component.html',
+  styleUrls: ['./flowers.component.css']
 })
-export class AppComponent {
+export class FlowersComponent {
   title:string;
   constructor(private flowerservice: FlowerService) { this.title = 'First Angular 5 example with joy'; }
   flowers:any[] = [];
