@@ -5,16 +5,9 @@
       <button title="Go to previous page" (click)="prevPage()"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
       <button title="Go to next page" (click)="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
       <button title="Go to last page" (click)="lastPage()"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
-    </div>
-    <p class ="diego">DIEGO BURLANDO</p>
-    <div class="row" *ngFor="let flower of flowersInPage">   
-      <p>{{flower.Name}}</p>          
-          <div class ="description">
-            <p>{{flower.Description}}</p>
-            <div>
-            <img src="{{flower.ImagePath}}" width="100%" alt="" />
-            </div>
-          </div>          
+    </div>   
+    <div class="row" *ngFor="let flower of flowersInPage">
+    <app-flower [flower] = flower></app-flower>          
     </div>
   </div>
 

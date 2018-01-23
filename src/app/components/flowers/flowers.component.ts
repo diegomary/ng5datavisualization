@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,AfterViewInit } from '@angular/core';
 import { FlowerService } from '../../services/flowerservice';
 import { Observable,Observer,Subject } from 'rxjs/Rx';
+
+
 @Component({
   selector: 'app-root',
   providers: [ FlowerService ],
   templateUrl: './flowers.component.html',
-  styleUrls: ['./flowers.component.css']
+  styleUrls: ['./flowers.component.css'],
 })
-export class FlowersComponent {
+export class FlowersComponent implements OnInit,AfterViewInit {
+  parentComponentVariable = "This is the value injected from parent to child";
   title:string;
   constructor(private flowerservice: FlowerService) { this.title = 'First Angular 5 example with joy'; }
   flowers:any[] = [];
@@ -84,8 +87,6 @@ export class FlowersComponent {
     //   error: err => console.log(`Oops... ${err}`),
     //   complete: () => console.log(`Complete!`),
     // });
-
-
 
 
 

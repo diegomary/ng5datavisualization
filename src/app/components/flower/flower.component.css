@@ -1,0 +1,28 @@
+.description {
+  display:flex;
+}
+
+.description > p {
+  width: 80%;
+  text-align: justify;
+  font-size:0.9em;
+  padding: 0 15px;
+  margin:0;
+}
+.description > div {
+  width: 20%;
+  padding: 0 1em;
+  box-sizing: border-box;  
+}
+.description > div > img {
+  border-radius: 3px;
+}
+
+.flowerTitle {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0 15px 10px 15px;
+  box-sizing: border-box;
+  margin:0;
+}
+
