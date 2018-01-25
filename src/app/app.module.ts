@@ -7,11 +7,12 @@ import { FlowerComponent } from './components/flower/flower.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { RouterModule,Routes } from '@angular/router';
 import { RouteComponent } from './components/route/route.component';
+import { D3VisualComponent } from './components/d3-visual/d3-visual.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: FlowersComponent },
-  { path: 'home1', component: FlowersComponent },
+  { path: 'd3visual', component: D3VisualComponent },
   { path: 'home2', component: FlowersComponent }
 ];
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   FlowersComponent,
   FlowerComponent,
   PaginatorComponent,
-  RouteComponent
+  RouteComponent,
+  D3VisualComponent
   ],
   imports: [BrowserModule,HttpModule,FormsModule,RouterModule.forRoot(routes)],
   providers: [],
