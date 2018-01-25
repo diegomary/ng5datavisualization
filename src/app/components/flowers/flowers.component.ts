@@ -3,7 +3,7 @@ import { FlowerService } from '../../services/flowerservice';
 import { Observable,Observer,Subject } from 'rxjs/Rx';
 
 @Component({
-  selector: 'app-root',
+  //selector: 'app-root', (no selector because it is routed)
   providers: [ FlowerService ],
   templateUrl: './flowers.component.html',
   styleUrls: ['./flowers.component.css'],
