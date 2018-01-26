@@ -12,9 +12,7 @@ export class PieChartComponent implements OnInit {
   	name:string;
 	
   	ngOnInit() {
-
-  	this.route.queryParams.subscribe(params => {
-		this.name= params.name});	
+  	this.route.queryParams.subscribe(params => {this.name= params.name});	
 	}
  }
 
