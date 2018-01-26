@@ -9,10 +9,10 @@ import * as d3 from "d3";
 })
 export class D3VisualComponent implements OnInit, AfterViewInit {
 
-  constructor() {
+  constructor() {}
+  name:string;
+  vis:any={};
 
-  }
- vis:any={};
  barColors = ():string => {
   	let x = Math.floor(Math.random() * 256);
        let y = Math.floor(Math.random() * 256);
