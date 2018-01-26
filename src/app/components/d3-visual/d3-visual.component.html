@@ -1,4 +1,6 @@
 
+<input type="text" [(ngModel)] = "name" >
+<a routerLink="/piechart" [queryParams]="{ name:name }"><button>Send your name</button></a>
 
 <div style="width:100%; padding:0 1em; box-sizing:border-box" class="bar">
  </div>
