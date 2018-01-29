@@ -9,6 +9,7 @@ import { RouterModule,Routes } from '@angular/router';
 import { RouteComponent } from './components/route/route.component';
 import { D3VisualComponent } from './components/d3-visual/d3-visual.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { OnlyNumberDirective } from './directives/only-number.directive';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
   PaginatorComponent,
   RouteComponent,
   D3VisualComponent,
-  PieChartComponent
+  PieChartComponent,
+  OnlyNumberDirective
   ],
   imports: [BrowserModule,HttpModule,FormsModule,RouterModule.forRoot(routes)],
   providers: [],

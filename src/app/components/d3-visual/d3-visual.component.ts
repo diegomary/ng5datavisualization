@@ -8,12 +8,25 @@ import * as d3 from "d3";
   styleUrls: ['./d3-visual.component.css']
 })
 export class D3VisualComponent implements OnInit, AfterViewInit {
-//
-  constructor() {}
+
+  constructor() {this.maxValue = this.getMaxValue()}
   name:string;
   vis:any={}; 
-  data:number[] = [7.4,3.51,6.50,12.4,1.45,23.1,2.45,2.34,1.23,1.23,11,1,2,3,4,5,6];               
-  maxValue = Math.max.apply(Math,this.data.map((o)=>{return o;}));
+  data:number[] = [];               
+  maxValue:number;
+  element:number;
+
+  getMaxValue = ():number => {
+    return Math.max.apply(Math,this.data.map((o)=>{return o;}));
+  }
+
+  addElement = ():void => {
+    this.data.push(this.element);  
+    this.maxValue = this.getMaxValue();
+    let windowSize = window.innerWidth-60;
+    this.drawGraph(windowSize,this.data);
+    this.element=null;    
+  }
  
 
  barColors = ():any => {
@@ -44,6 +57,10 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
       .domain([0, this.maxValue])
       .range([height,0])
 
+      // var x = d3.scaleTime()
+      //     .domain([new Date(2010, 6, 3), new Date(2012, 0, 1)])
+      //     .rangeRound([0, width]);
+
     let xScale = d3.scaleLinear()
     .domain([0,data.length])
     .range([0, width]);
@@ -67,7 +84,7 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
    
     .attr("transform", (d)=> { return "translate(0," + ((height - (d*400/this.maxValue))+(d*400/this.maxValue/2)) + ") rotate(0)";})
     .attr("font-size","small")   
-    .attr("x", (d,i) => {let xPos = ((i*width/data.length)+(width/data.length/2)); return xPos;});
+    .attr("x", (d,i) => {let xPos = ((i*width/data.length)+(width/data.length/2)-8); return xPos;});
       //minigroup.selectAll("g:nth-child(2n) > rect").style("fill","steelblue");
       //minigroup.selectAll("g:nth-child(2n+1) > rect").style("fill","cornflowerblue");
       //minigroup.selectAll("g> text").style("fill","white");
