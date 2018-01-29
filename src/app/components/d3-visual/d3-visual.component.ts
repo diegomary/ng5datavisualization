@@ -15,12 +15,15 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
   data:number[] = [];               
   maxValue:number;
   element:number;
+  startDate:Date;
+  endDate:Date;
 
   getMaxValue = ():number => {
     return Math.max.apply(Math,this.data.map((o)=>{return o;}));
   }
 
   addElement = ():void => {
+   
     this.data.push(this.element);  
     this.maxValue = this.getMaxValue();
     let windowSize = window.innerWidth-60;
@@ -28,6 +31,14 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
     this.element=null;    
   }
  
+ clearGraph = ():void => {
+   this.data = [];
+   this.maxValue = this.getMaxValue();
+   let windowSize = window.innerWidth-60;
+   this.drawGraph(windowSize,this.data);
+   this.startDate=null;
+   this.endDate=null;
+ }
 
  barColors = ():any => {
   	let x = Math.floor(Math.random() * 256);
@@ -50,27 +61,41 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
       .append("svg:svg")
       .attr("width", width)
       .attr("height", height)                
-      .style("padding", "30px");
+      .style("padding", "30px 30px 70px 30px");
 
 
     let yScale = d3.scaleLinear()
       .domain([0, this.maxValue])
       .range([height,0])
+      this.endDate = new Date(this.startDate); 
 
-      // var x = d3.scaleTime()
-      //     .domain([new Date(2010, 6, 3), new Date(2012, 0, 1)])
-      //     .rangeRound([0, width]);
 
-    let xScale = d3.scaleLinear()
-    .domain([0,data.length])
-    .range([0, width]);
+      this.endDate.setDate(this.endDate.getDate() + this.data.length); 
+
+       console.log(this.startDate);
+       console.log(this.endDate);
+
+    let xScale = d3.scaleTime()
+            .domain([this.startDate,this.endDate])
+            .range([0, width]);
+
+
+    //  let xScale = d3.scaleLinear()
+    // .domain([0,data.length])
+    //  .range([0, width]);
     let yAxis = d3.axisLeft(yScale);
-    let xAxis = d3.axisBottom(xScale).ticks(this.data.length);
+    let xAxis = d3.axisBottom(xScale).ticks(this.data.length).tickFormat(d3.timeFormat("%d-%m-%Y"));
     this.vis.append("g")          
         .call(yAxis);   
     this.vis.append("g")        
         .attr("transform", "translate(0," + (height) + ")")
-        .call(xAxis);
+        .call(xAxis)
+  .selectAll("text")
+    .attr("y", 0)
+    .attr("x", 9)
+    .attr("dy", ".35em")
+    .attr("transform", "rotate(90)")
+    .style("text-anchor", "start");
     // Bars creation
     let minigroup =  this.vis.append("g")
     .selectAll("g")
@@ -106,7 +131,6 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
      this.vis={};     
    }
   ngAfterViewInit():void {
-
 
   d3.json('http://api.reddit.com/', (error, data:any) => {this.drawGraph(window.innerWidth-60,this.data);});
 
