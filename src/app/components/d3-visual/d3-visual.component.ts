@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
 import * as d3 from "d3";
 
+const  SCALES = {
+  LINEAR : "0", 
+  TIME: "1" 
+};
 
 @Component({
   selector: 'app-d3-visual',
@@ -11,31 +15,71 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
 
   constructor() {this.maxValue = this.getMaxValue()}
   name:string;
+  height:number = 400;
   vis:any={}; 
   data:number[] = [];               
   maxValue:number;
   element:number;
   startDate:Date;
   endDate:Date;
+  scaleChoice:string;
+  width = window.innerWidth-60;
+  axisChoices = {
+  'LINEAR':  ()=> {
+    let yScale = d3.scaleLinear()
+        .domain([0, this.maxValue])
+        .range([this.height,0]);
+        let xScale = d3.scaleLinear()
+        .domain([0,this.data.length])
+        .range([0, this.width]);   
+        let xAxis = d3.axisBottom(xScale).ticks(this.data.length);
+        this.vis.append("g")        
+        .attr("transform", "translate(0," + (this.height) + ")")
+        .call(xAxis);
+        let yAxis = d3.axisLeft(yScale);    
+        this.vis.append("g").call(yAxis);
+  },
+  'TIME':  ()=> {
+     let yScale = d3.scaleLinear()
+        .domain([0, this.maxValue])
+        .range([this.height,0]);
+        this.endDate = new Date(this.startDate);
+        this.endDate.setDate(this.endDate.getDate() + this.data.length);
+        let xScale = d3.scaleTime()
+        .domain([this.startDate,this.endDate])
+        .range([0, this.width]);
+        let xAxis = d3.axisBottom(xScale).ticks(this.data.length).tickFormat(d3.timeFormat("%d-%m-%Y"));
+        this.vis.append("g")        
+        .attr("transform", "translate(0," + (this.height) + ")")
+        .call(xAxis).selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+        let yAxis = d3.axisLeft(yScale);    
+        this.vis.append("g").call(yAxis);
+  }
+};
+
 
   getMaxValue = ():number => {
     return Math.max.apply(Math,this.data.map((o)=>{return o;}));
   }
 
-  addElement = ():void => {
-   
+  addElement = ():void => {   
     this.data.push(this.element);  
     this.maxValue = this.getMaxValue();
-    let windowSize = window.innerWidth-60;
-    this.drawGraph(windowSize,this.data);
+    this.width = window.innerWidth-60;
+    this.drawGraph(this.width);
     this.element=null;    
   }
  
  clearGraph = ():void => {
    this.data = [];
    this.maxValue = this.getMaxValue();
-   let windowSize = window.innerWidth-60;
-   this.drawGraph(windowSize,this.data);
+   this.width = window.innerWidth-60;
+   this.drawGraph(this.width);
    this.startDate=null;
    this.endDate=null;
  }
@@ -47,73 +91,36 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
     return (x && y && z === 255) ? this.barColors(): {r:x,g:y,b:z};
   }
   resizeHisto= (event):void => {    
-    let windowSize = event.target.innerWidth-60;
-    this.drawGraph(windowSize,this.data);   
-  }
+    this.width = event.target.innerWidth-60;
+    this.drawGraph(this.width);   
+  }  
 
-  drawGraph = (size,data):void => {
-    let width = size;
-    let height = 400;
-    d3.select(".bar").html("");
-    // Data for Graphic    
-    // Axis Creation
+  drawGraph = (size):void => {
+    let width = size;    
+    d3.select(".bar").html("");   
     this.vis = d3.select(".bar")                     
       .append("svg:svg")
       .attr("width", width)
-      .attr("height", height)                
+      .attr("height", this.height)                
       .style("padding", "30px 30px 70px 30px");
-
-
-    let yScale = d3.scaleLinear()
-      .domain([0, this.maxValue])
-      .range([height,0])
-      this.endDate = new Date(this.startDate); 
-
-
-      this.endDate.setDate(this.endDate.getDate() + this.data.length); 
-
-       console.log(this.startDate);
-       console.log(this.endDate);
-
-    let xScale = d3.scaleTime()
-            .domain([this.startDate,this.endDate])
-            .range([0, width]);
-
-
-    //  let xScale = d3.scaleLinear()
-    // .domain([0,data.length])
-    //  .range([0, width]);
-    let yAxis = d3.axisLeft(yScale);
-    let xAxis = d3.axisBottom(xScale).ticks(this.data.length).tickFormat(d3.timeFormat("%d-%m-%Y"));
-    this.vis.append("g")          
-        .call(yAxis);   
-    this.vis.append("g")        
-        .attr("transform", "translate(0," + (height) + ")")
-        .call(xAxis)
-  .selectAll("text")
-    .attr("y", 0)
-    .attr("x", 9)
-    .attr("dy", ".35em")
-    .attr("transform", "rotate(90)")
-    .style("text-anchor", "start");
-    // Bars creation
+    let choice = this.scaleChoice === SCALES.LINEAR ? 'LINEAR':'TIME';
+    this.axisChoices[choice]();
     let minigroup =  this.vis.append("g")
     .selectAll("g")
-    .data(data).enter().append("g");
+    .data(this.data).enter().append("g");
     minigroup.append("rect")
-    .attr("width",width/data.length)
+    .attr("width",width/this.data.length)
     .attr("height", (d) => { return (d *400/this.maxValue);})    
-    .attr("transform", (d)=> { return "translate(0," + (height - (d*400/this.maxValue)) + ")";})
-    .attr("x", (d,i) => { let xPos = i * (width/data.length); return xPos; });
-    minigroup.append("text").text(d=>d)
-   
-    .attr("transform", (d)=> { return "translate(0," + ((height - (d*400/this.maxValue))+(d*400/this.maxValue/2)) + ") rotate(0)";})
+    .attr("transform", (d)=> { return "translate(0," + (this.height - (d*400/this.maxValue)) + ")";})
+    .attr("x", (d,i) => { let xPos = i * (width/this.data.length); return xPos; });
+    minigroup.append("text").text(d=>d)   
+    .attr("transform", (d)=> { return "translate(0," + ((this.height - (d*400/this.maxValue))+(d*400/this.maxValue/2)) + ") rotate(0)";})
     .attr("font-size","small")   
-    .attr("x", (d,i) => {let xPos = ((i*width/data.length)+(width/data.length/2)-8); return xPos;});
+    .attr("x", (d,i) => {let xPos = ((i*width/this.data.length)+(width/this.data.length/2)-8); return xPos;});
       //minigroup.selectAll("g:nth-child(2n) > rect").style("fill","steelblue");
       //minigroup.selectAll("g:nth-child(2n+1) > rect").style("fill","cornflowerblue");
       //minigroup.selectAll("g> text").style("fill","white");
-   for(let counter = 0; counter < data.length;counter++)
+   for(let counter = 0; counter < this.data.length;counter++)
    {      
       let color = this.barColors();
       minigroup.selectAll("g:nth-child("+(counter+1)+") > rect").style("fill","rgb(" + color.r + "," + color.g + "," + color.b + ")");
@@ -130,17 +137,9 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
      d3.select(".bar").html("");
      this.vis={};     
    }
-  ngAfterViewInit():void {
-
-  d3.json('http://api.reddit.com/', (error, data:any) => {this.drawGraph(window.innerWidth-60,this.data);});
-
-// setInterval(()=>{
-//   this.data = Array.from({length: Math.floor(Math.random() * 40)}, () => Math.floor(Math.random() * 40));  
-//   this.maxValue = Math.max.apply(Math,this.data.map((o)=>{return o;}));
-//   this.drawGraph(window.innerWidth-60,this.data)
-// },800)
-
-
+  ngAfterViewInit():void {    
+    this.drawGraph(this.width);
+ // d3.json('http://api.reddit.com/', (error, data:any) => {this.drawGraph(window.innerWidth-60);});
   }
 
 }

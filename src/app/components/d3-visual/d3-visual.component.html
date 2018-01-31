@@ -1,5 +1,5 @@
-<input type="text" [(ngModel)] = "name" >
-<a routerLink="/piechart" [queryParams]="{ name:name }"><button>Send your name</button></a>
+<input hidden type="text" [(ngModel)] = "name" >
+<a hidden routerLink="/piechart" [queryParams]="{ name:name }"><button>Send your name</button></a>
 
 <form (ngSubmit) = "addElement()">
 	<input placeholder="add data..." type="text" OnlyNumber [active] = "true" [(ngModel)] = "element" [ngModelOptions]="{standalone: true}" >
@@ -17,8 +17,17 @@
 
 
 <div style="width:100%; box-sizing:border-box" class="bar">
-
 </div>
+
+
+<mat-radio-group [(ngModel)]="scaleChoice">
+  <mat-radio-button  value="0">Linear scale</mat-radio-button>
+  <mat-radio-button  value="1">Time scale</mat-radio-button>
+</mat-radio-group>
+
+
+
+
 
 
 
