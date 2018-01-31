@@ -1,34 +1,34 @@
 <input hidden type="text" [(ngModel)] = "name" >
 <a hidden routerLink="/piechart" [queryParams]="{ name:name }"><button>Send your name</button></a>
 
-<form (ngSubmit) = "addElement()">
-	<input placeholder="add data..." type="text" OnlyNumber [active] = "true" [(ngModel)] = "element" [ngModelOptions]="{standalone: true}" >
-<input  type ="submit" value="Send data">
-</form>
 
 
- <mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date"  [(ngModel)] = "startDate">
+
+<div class = "mat-card-container">
+
+<div style="display:flex; justify-content:space-between; align-items: center;">
+<p style="color:#8F8F8F">Choose an x scale for your histogram: </p> <mat-radio-group [(ngModel)]="scaleChoice">
+  <mat-radio-button  value="0">Linear</mat-radio-button>
+  <mat-radio-button  value="1">Time</mat-radio-button>
+</mat-radio-group><button mat-icon-button title="Clear graph" (click) ="clearGraph()"><mat-icon>delete</mat-icon></button></div>
+
+
+
+<mat-form-field class="form-width" >
+  <input matInput [matDatepicker]="picker" [disabled]="scaleChoice==='0'?true:false" placeholder="Choose a date:"  [(ngModel)] = "startDate">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
 
-<button (click) ="clearGraph()">Clear graph</button>
+<form  (ngSubmit) = "addElement()">
+   <mat-form-field class="form-width">
+    <input matInput placeholder="Add data..." type="text" OnlyNumber [active] = "true" [(ngModel)] = "element" [ngModelOptions]="{standalone: true}" >
+  </mat-form-field>
+</form>
 
-
-<div style="width:100%; box-sizing:border-box" class="bar">
 </div>
 
-
-<mat-radio-group [(ngModel)]="scaleChoice">
-  <mat-radio-button  value="0">Linear scale</mat-radio-button>
-  <mat-radio-button  value="1">Time scale</mat-radio-button>
-</mat-radio-group>
+<div style="width:100%; box-sizing:border-box; position:relative" class="bar">
 
 
-
-
-
-
-
-
+</div>

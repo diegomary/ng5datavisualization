@@ -17,13 +17,13 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
   name:string;
   height:number = 400;
   vis:any={}; 
-  data:number[] = [];               
+  data:number[] = [33.45,43,54.65,34,74.3,46.65,56,76,65,43.56,15,24,87,37.5,48,31.87];               
   maxValue:number;
   element:number;
   startDate:Date;
   endDate:Date;
-  scaleChoice:string;
-  width = window.innerWidth-60;
+  scaleChoice:string='0';
+  width = window.innerWidth-60;  
   axisChoices = {
   'LINEAR':  ()=> {
     let yScale = d3.scaleLinear()
@@ -102,7 +102,8 @@ export class D3VisualComponent implements OnInit, AfterViewInit {
       .append("svg:svg")
       .attr("width", width)
       .attr("height", this.height)                
-      .style("padding", "30px 30px 70px 30px");
+      .style("padding", "30px 10px 70px 30px")
+
     let choice = this.scaleChoice === SCALES.LINEAR ? 'LINEAR':'TIME';
     this.axisChoices[choice]();
     let minigroup =  this.vis.append("g")

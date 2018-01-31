@@ -5,3 +5,21 @@
 }
 
 
+.mat-card-container {
+	width:500px;
+	margin:0 auto;		
+	display:flex;
+	flex-direction:column;
+	position:relative;
+	padding: 0;
+}
+
+.form-width {
+	width:100%;
+} 
+
+@media(max-width:600px) {
+	.mat-card-container {
+	width:90%}
+}
+
