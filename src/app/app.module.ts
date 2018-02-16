@@ -100,7 +100,7 @@ export class UsedMaterialModule{}
   PieChartComponent,
   OnlyNumberDirective  
   ],
-  imports: [UsedMaterialModule,BrowserModule,HttpModule,FormsModule,RouterModule.forRoot(routes),
+  imports: [UsedMaterialModule,BrowserModule,HttpModule,FormsModule,RouterModule.forRoot(routes, {useHash: true}),
   MatDatepickerModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [RouteComponent]
