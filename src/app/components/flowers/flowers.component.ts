@@ -14,11 +14,12 @@ export class FlowersComponent implements OnInit,AfterViewInit {
   constructor(private flowerservice: FlowerService) { this.title = 'First Angular 5 example with joy'; }
   flowers:any[] = [];
   flowersInPage:any[];
+  loading:boolean;
 
   ListenToPaginator = (portion:any[]) => { this.flowersInPage = portion;}
 
-  ngOnInit():void{}
-  ngAfterViewInit():void {
+  ngOnInit():void{ this.loading=true;}
+  ngAfterViewInit():void {       
     this.flowerservice.getFlowersWithReactiveExtensions().subscribe(
           res => {              
                   res.response.forEach( item => {   
@@ -26,8 +27,9 @@ export class FlowersComponent implements OnInit,AfterViewInit {
                   "http://dmm888.com/Images/Flowers/",
                   "https://nodehelperstatic-statichelper.7e14.starter-us-west-2.openshiftapps.com/Flowers/");
                   });
+                    
                     this.flowers = res.response;
-
+                    this.loading = false;
                  },
           err => {console.error(err);});
 }

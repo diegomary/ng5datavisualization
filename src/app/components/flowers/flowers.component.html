@@ -1,6 +1,9 @@
 
   <div class="container">
-   <app-paginator [flowers] = "flowers"   (FlowersChunk)="ListenToPaginator($event)"   > </app-paginator>
+        <div [ngClass]="loading?'ng-loader':'ng-hide-loader'" >
+          <div></div>
+        </div>
+   <app-paginator [flowers] = "flowers" [ngClass]="loading?'hide-paginator':'show-paginator'"  (FlowersChunk)="ListenToPaginator($event)"   > </app-paginator>
     <div class="row" *ngFor="let flower of flowersInPage">
     <app-flower [flower] = flower></app-flower>          
     </div>
