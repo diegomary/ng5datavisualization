@@ -14,15 +14,17 @@ export class FlowerService {
     this.headers.append('Content-Type', 'application/json');
   }
 
+  // Azure: https://apimicrobach.azurewebsites.net/flowers
+
   getFlowers():any {
-    return this.http.get(`https://apimicrobach.azurewebsites.net/flowers`)
+    return this.http.get(`https://l81zzv6lgl.execute-api.us-east-2.amazonaws.com/Production`)
     .map((res:Response) => res.json());
   }
 
 
   getFlowersWithReactiveExtensions():Observable<AjaxResponse> {
 	return Observable    
-    .ajax({url:'https://apimicrobach.azurewebsites.net/flowers',responseType: 'json',headers:{},method:'GET',body:{}})
+    .ajax({url:'https://l81zzv6lgl.execute-api.us-east-2.amazonaws.com/Production',responseType: 'json',headers:{},method:'GET',body:{}})
   }
   
 }
