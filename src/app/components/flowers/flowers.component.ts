@@ -25,7 +25,7 @@ export class FlowersComponent implements OnInit,AfterViewInit {
                   res.response.forEach( item => {   
                   item.ImagePath = item.ImagePath.replace(
                   "http://dmm888.com/Images/Flowers/",
-                  "https://nodehelperstatic-statichelper.7e14.starter-us-west-2.openshiftapps.com/Flowers/");
+                  "https://s3.us-east-2.amazonaws.com/dm88stagedata/bachflowers/");
                   });
                     
                     this.flowers = res.response;
