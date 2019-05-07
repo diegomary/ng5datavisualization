@@ -17,14 +17,14 @@ export class FlowerService {
   // Azure: https://apimicrobach.azurewebsites.net/flowers
 
   getFlowers():any {
-    return this.http.get(`https://l81zzv6lgl.execute-api.us-east-2.amazonaws.com/Production`)
+    return this.http.get(`https://algorithmnemesis.cloud/api/bachflowers`)
     .map((res:Response) => res.json());
   }
 
 
   getFlowersWithReactiveExtensions():Observable<AjaxResponse> {
 	return Observable    
-    .ajax({url:'https://l81zzv6lgl.execute-api.us-east-2.amazonaws.com/Production',responseType: 'json',headers:{},method:'GET',body:{}})
+    .ajax({url:'https://algorithmnemesis.cloud/api/bachflowers',responseType: 'json',headers:{},method:'GET',body:{}})
   }
   
 }

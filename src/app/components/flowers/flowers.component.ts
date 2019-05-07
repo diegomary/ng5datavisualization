@@ -21,13 +21,7 @@ export class FlowersComponent implements OnInit,AfterViewInit {
   ngOnInit():void{ this.loading=true;}
   ngAfterViewInit():void {       
     this.flowerservice.getFlowersWithReactiveExtensions().subscribe(
-          res => {              
-                  res.response.forEach( item => {   
-                  item.ImagePath = item.ImagePath.replace(
-                  "http://dmm888.com/Images/Flowers/",
-                  "https://s3.us-east-2.amazonaws.com/dm88stagedata/bachflowers/");
-                  });
-                    
+          res => {               
                     this.flowers = res.response;
                     this.loading = false;
                  },
